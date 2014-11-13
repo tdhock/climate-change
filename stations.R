@@ -1,4 +1,4 @@
-works_with_R("3.1.1", data.table="1.9.4")
+works_with_R("3.1.1", dplyr="0.2")
 
 ## Parse the first occurance of pattern from each of several strings
 ## using (named) capturing regular expressions, returning a matrix
@@ -42,7 +42,7 @@ pattern <-
 Index.mat <- str_match_perl(Index.lines, pattern)
 stopifnot(!is.na(Index.mat))
 strip <- function(x){
-  gsub("^[- ]*", "", gsub("[- ]*$", "", x))
+  gsub("^[ ]*", "", gsub("[ ]*$", "", x))
 }
 types <-
   c(Number=as.integer,
@@ -58,7 +58,12 @@ for(col.name in names(types)){
   type.fun <- types[[col.name]]
   Index.list[[col.name]] <- type.fun(strip(Index.mat[, col.name]))
 }
-stations <- do.call(data.frame, Index.list)
-stopifnot(!is.na(stations))
+all.stations <- do.call(data.frame, Index.list) 
+stopifnot(!is.na(all.stations))
+subset(all.stations, Lat < -90)
+subset(all.stations, Name == "name")
+
+stations <- all.stations %.%
+  filter(Lat > -90)
 
 save(stations, file="stations.RData")

@@ -3,3 +3,11 @@ auto
 CRUTEM.4.3.0.0.station_files
 CRUTEM.4.3.0.0.station_files.zip
 station_file_format.txt
+*.aux
+*.bbl
+*.blg
+*.log
+figure-*.pdf
+figure-*.png
+figure-*.tex
+*.RData
