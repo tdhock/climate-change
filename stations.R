@@ -1,7 +1,31 @@
 works_with_R("3.1.1", data.table="1.9.4")
 
-Index <- read.fwf("CRUTEM.4.3.0.0.station_files/Index",
-                  widths=c(6, 23, 15, 7, 7, 6, 5, 5))
+## Parse the first occurance of pattern from each of several strings
+## using (named) capturing regular expressions, returning a matrix
+## (with column names).
+str_match_perl <- function(string,pattern){
+  stopifnot(is.character(string))
+  stopifnot(is.character(pattern))
+  stopifnot(length(pattern)==1)
+  parsed <- regexpr(pattern,string,perl=TRUE)
+  captured.text <- substr(string,parsed,parsed+attr(parsed,"match.length")-1)
+  captured.text[captured.text==""] <- NA
+  captured.groups <- if(is.null(attr(parsed, "capture.start"))){
+    NULL
+  }else{
+    do.call(rbind,lapply(seq_along(string),function(i){
+      st <- attr(parsed,"capture.start")[i,]
+      if(is.na(parsed[i]) || parsed[i]==-1)return(rep(NA,length(st)))
+      substring(string[i],st,st+attr(parsed,"capture.length")[i,]-1)
+    }))
+  }
+  result <- cbind(captured.text,captured.groups)
+  colnames(result) <- c("",attr(parsed,"capture.names"))
+  result
+}
+
+## Index <- read.fwf("CRUTEM.4.3.0.0.station_files/Index",
+##                   widths=c(6, 23, 15, 7, 7, 6, 5, 5))
 Index.lines <-
   readLines("CRUTEM.4.3.0.0.station_files/Index", encoding="latin1")
 stopifnot(nchar(Index.lines) == 74)
