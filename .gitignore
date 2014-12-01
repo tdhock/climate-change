@@ -11,3 +11,4 @@ figure-*.pdf
 figure-*.png
 figure-*.tex
 *.RData
+.Rhistory

@@ -9,5 +9,7 @@ CRUTEM.4.3.0.0.station_files/Index:
 	unzip CRUTEM.4.3.0.0.station_files.zip
 stations.RData: stations.R CRUTEM.4.3.0.0.station_files/Index
 	R --no-save < $<
-figure-stations.pdf: figure-stations.R stations.RData
+temperatures.RData: temperatures.R CRUTEM.4.3.0.0.station_files/Index
+	R --no-save < $<
+figure-stations.pdf: figure-stations.R stations.RData temperatures.RData
 	R --no-save < $<
