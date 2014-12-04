@@ -1,5 +1,11 @@
 Analysis of climate change data
 
 I downloaded temperature sensor data from
-http://www.metoffice.gov.uk/hadobs/crutem4/data/download.html and
-would like to analyze and visualize it.
+http://www.metoffice.gov.uk/hadobs/crutem4/data/download.html and I
+used R and [[https://github.com/tdhock/animint][Animint]] to create [[http://cbio.ensmp.fr/~thocking/animint-climate-change/index.html][an interactive map and time series plot]].
+
+To re-do the analysis first copy the =works_with_R= function from
+https://github.com/tdhock/dotfiles/blob/master/.Rprofile to your
+=~/.Rprofile=, and then type =make= on the command line.
+
+
