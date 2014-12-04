@@ -11,5 +11,7 @@ stations.RData: stations.R CRUTEM.4.3.0.0.station_files/Index
 	R --no-save < $<
 temperatures.RData: temperatures.R CRUTEM.4.3.0.0.station_files/Index
 	R --no-save < $<
-figure-stations.pdf: figure-stations.R stations.RData temperatures.RData
+figure-stations.pdf: figure-stations.R crutem.grid.RData temperatures.RData
+	R --no-save < $<
+crutem.grid.RData: crutem.grid.R stations.RData
 	R --no-save < $<

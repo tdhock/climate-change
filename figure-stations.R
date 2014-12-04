@@ -6,15 +6,6 @@ works_with_R("3.1.1",
 load("stations.RData")
 load("temperatures.RData")
 
-## From http://www.metoffice.gov.uk/hadobs/crutem4/data/Read_instructions.txt,
-## Data Array (72x36)
-## Item (1,1) stores the value for the 5-deg-area centred at 177.5W and 87.5N
-## Item (72,36) stores the value for the 5-deg-area centred at 177.5E and 87.5S
-long.edges <- seq(-177.5, 177.5, by=5)
-lat.edges <- seq(-87.5, 87.5, by=5)
-## Idea: use this grid to make some squares over the map so we can
-## also show a second plot with a zoomed version of the map.
-
 station.disp <- stations %>%
   arrange(StartYear, EndYear) %>%
   mutate(station=factor(Number, Number),
